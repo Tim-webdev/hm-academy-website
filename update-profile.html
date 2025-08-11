@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    <link rel="stylesheet" href="Css/update-profile.css">
+</head>
+<body>
+    <form id="edit-profile-form" enctype="multipart/form-data">
+  <input type="text" id="fullName" placeholder="Full Name" required />
+  <input type="tel" id="phone" placeholder="Phone Number" required />
+  <select id="gender" required>…</select>
+  <input type="date" id="dob" required />
+  <textarea id="address" placeholder="Address" rows="3" required></textarea>
+  <input type="file" id="avatar" accept="image/*" />
+  <button type="submit"> <a href="student-profile.html"> Update Profile</a></button>
+</form>
+<p id="edit-msg"></p>
+<img id="avatar-preview" src="" alt="Avatar" width="120" style="display:none; border-radius:50%;" />
+<script src="Js/student-profile.js"></script>
+</body>
+</html>

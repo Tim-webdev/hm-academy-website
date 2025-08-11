@@ -1,0 +1,107 @@
+/* Css/student-dashboard.css */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+  background-color: #000;
+  overflow-x: hidden;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-size: cover;
+  background-position: center;
+  animation: bgSlide 18s infinite;
+  opacity: 0.75;
+}
+
+@keyframes bgSlide {
+  0%   { background-image: url('../images/Navy\ Gate.jpeg'); }
+  33%  { background-image: url('../images/Navy\ Estate\ 1.jpeg'); }
+  66%  { background-image: url('../images/Navy\ Estate\ 2.jpeg'); }
+  100% { background-image: url('../images/HAM\ LOGO\ copy.png'); }
+}
+
+header {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  text-align: center;
+  border-bottom: 1px solid #00e1ff;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #00e1ff;
+}
+
+nav {
+  margin-top: 10px;
+}
+
+nav a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #00e1ff;
+  text-decoration: underline;
+}
+
+.dashboard {
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+.bio-data-form {
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 100%;
+}
+
+.bio-data-form h2 {
+  text-align: center;
+  color: #00e1ff;
+  margin-bottom: 20px;
+}
+
+form input, form select, form textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+form button {
+  background-color: #00e1ff;
+  color: black;
+  padding: 12px;
+  font-weight: bold;
+  border: none;
+  width: 100%;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+form button:hover {
+  background-color: #00bcd4;
+}
+
+#msg {
+  margin-top: 15px;
+  text-align: center;
+  color: lightgreen;
+}

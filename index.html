@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hands and Minds Computer Academy</title>
+  <link rel="stylesheet" href="Css/styles.css">
+</head>
+<body>
+  <header>
+  <img src="images/HAM LOGO copy.png" alt="Logo" class="logo">
+
+  <!-- Mobile menu toggle -->
+  <div class="menu-toggle" id="menu-toggle">&#9776;</div>
+
+  <nav id="navbar">
+    <a href="courses.html">Courses</a>
+    <a href="student-login.html">Student Login</a>
+    <a href="staff-login.html">Staff Login</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+  </nav>
+</header>
+  <main>
+    <section id="hero">
+      <h1>Empowering Skills, Transforming Minds</h1>
+      <p>Learn Graphic Design, Web Dev, UI/UX, Motion Graphics, and more!</p>
+      <a href="courses.html" class="btn">Explore Courses</a>
+    </section>
+  </main>
+  <footer>
+    <p>Contact us: handsmindsacademy@gmail.com | +234 802 881 6130</p>
+    <div class="social-links">
+      <a href="https://www.facebook.com/profile.php?1d=61578949205719">Facebook</a> | <a href="https://wa.me/message/DDIZC3KAUH3BJ1">Whatsapp</a> | <a href="#">LinkedIn</a>
+    </div>
+  </footer>
+
+  <script defer>
+
+    // Mobile nav toggle
+const menuToggle = document.getElementById('menu-toggle');
+const navbar = document.getElementById('navbar');
+
+menuToggle.addEventListener('click', () => {
+  navbar.classList.toggle('active');
+});
+
+  </script>
+
+  <script src="Js/app.js"></script>
+</body>
+</html>

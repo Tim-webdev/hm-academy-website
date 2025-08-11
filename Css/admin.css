@@ -1,0 +1,123 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #101010;
+  color: #fff;
+  display: flex;
+}
+
+.background-animation {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+  animation: rotateBackground 30s linear infinite;
+  z-index: -1;
+  opacity: 0.2;
+}
+
+@keyframes rotateBackground {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+aside {
+  width: 220px;
+  background: rgba(0,0,0,0.7);
+  padding: 20px;
+  height: 100vh;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav a {
+  color: #00e1ff;
+  text-decoration: none;
+  display: block;
+  padding: 10px 0;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #fff;
+}
+
+main {
+  flex: 1;
+  padding: 40px;
+  background-color: rgba(255,255,255,0.03);
+  backdrop-filter: blur(4px);
+}
+
+.stats div {
+  background: rgba(255,255,255,0.08);
+  margin: 10px 0;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 18px;
+}
+
+.contact-section {
+  margin-top: 40px;
+  background: rgba(255,255,255,0.05);
+  padding: 30px;
+  border-radius: 12px;
+}
+
+.contact-section h2 {
+  margin-bottom: 20px;
+  color: #00e1ff;
+}
+
+form input, form textarea {
+  width: 100%;
+  margin-bottom: 15px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+form button {
+  background-color: #00e1ff;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  font-size: 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+form button:hover {
+  background-color: #00b3cc;
+}
+
+.divider {
+  text-align: center;
+  margin: 20px 0;
+  font-style: italic;
+  color: #ccc;
+}
+
+.whatsapp-btn {
+  display: inline-block;
+  background: #25D366;
+  color: white;
+  padding: 12px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.whatsapp-btn:hover {
+  background: #1da955;
+}
