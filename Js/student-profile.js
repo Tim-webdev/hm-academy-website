@@ -1,4 +1,6 @@
-const BASE_URL = 'http://localhost:5000/api';
+const BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:5000/api/auth'
+    : 'https://hm-academy-website.onrender.com/api/auth';
 const email = localStorage.getItem('userEmail');
 const profileDiv = document.getElementById('profile-info');
 const statusDiv = document.getElementById('payment-status');

@@ -1,4 +1,6 @@
-const BASE_URL = 'http://localhost:5000/api/auth';
+const BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:5000/api/auth'
+    : 'https://hm-academy-website.onrender.com/api/auth';
 
 const emailInput = document.getElementById('email');
 const otpInput = document.getElementById('otp');

@@ -1,5 +1,7 @@
 // Js/create-account.js
-const BASE_URL = 'http://localhost:5000/api/auth';
+const BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:5000/api/auth'
+    : 'https://hm-academy-website.onrender.com/api/auth';
 
 document.getElementById('register-form').addEventListener('submit', async (e) => {
   e.preventDefault();

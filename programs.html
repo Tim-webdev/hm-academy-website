@@ -23,7 +23,9 @@
 
   <script src="https://js.paystack.co/v2/inline.js"></script>
   <script>
-    const BASE_URL = 'http://localhost:5000/api/payment';
+    const BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:5000/api/auth'
+    : 'https://hm-academy-website.onrender.com/api/auth';
     const studentEmail = localStorage.getItem('userEmail') || prompt('Enter your email');
 
     document.getElementById('pay-btn').addEventListener('click', async () => {
