@@ -1,0 +1,80 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f8fa;
+  color: #333;
+}
+
+/* 🔁 Background Slider for Course Page */
+.background-slider {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  animation: slideBackground 18s infinite;
+  background-size: cover;
+  background-position: center;
+  filter: brightness(0.6);
+}
+
+@keyframes slideBackground {
+  0% { background-image: url('../images/All\ courses.jpeg'); }
+  33% { background-image: url('../images/flyer.jpeg'); }
+  66% { background-image: url('../images/flyer2.jpeg'); }
+  100% { background-image: url('../images/ONE\ 2.jpg'); }
+}
+
+header {
+  background-color: #005792;
+  color: white;
+  text-align: center;
+  padding: 30px 10px;
+}
+
+#course-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 30px;
+  justify-content: center;
+}
+
+.course-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+  width: 300px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-5px);
+}
+
+.course-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.course-info {
+  padding: 20px;
+}
+
+.course-info h2 {
+  color: #005792;
+  margin-bottom: 10px;
+}
+
+.course-info ul {
+  list-style: none;
+  padding: 0;
+}
+
+.course-info li {
+  margin: 5px 0;
+  color: #333;
+}

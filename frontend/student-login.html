@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Login</title>
+  <link rel="stylesheet" href="Css/student-login.css" />
+</head>
+<body>
+
+  <div class="bg-slider"></div>
+
+  <div class="login-container">
+    <form id="student-login">
+      <h2>Student Login</h2>
+
+      <label for="email">Email</label>
+      <input type="email" name="email" id="email" required />
+
+      <label for="password">Password</label>
+      <input type="password" name="password" id="password" required />
+
+      <button type="submit">Login</button>
+
+      <p id="login-msg" style="color:red; font-weight:bold;"></p>
+
+      <div class="login-links">
+        <a href="forgot-password.html">Forgot password?</a> 
+        <a href="create-account.html">Create an account</a>
+      </div>
+    </form>
+  </div>
+<script>
+  // Automatically switch between local and live backend
+  const BASE_URL = window.location.hostname === 'localhost'
+    ? 'http://localhost:5000/api/auth'
+    : 'https://hm-academy-website.onrender.com/api/auth';
+
+  document.getElementById('student-login').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const msg = document.getElementById('login-msg');
+
+    msg.textContent = 'Logging in... ⏳';
+    msg.style.color = 'blue';
+
+    try {
+      const res = await fetch(`${BASE_URL}/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || !data.success) {
+        msg.style.color = 'red';
+        msg.textContent = data.message || 'Invalid credentials ❌';
+        return;
+      }
+
+      // ✅ Only allow students to enter student dashboard
+      if (data.role !== 'student') {
+        msg.style.color = 'red';
+        msg.textContent = 'You are not a student ❌';
+        return;
+      }
+
+      msg.style.color = 'green';
+      msg.textContent = 'Login successful ✔️ Redirecting...';
+
+      // Store email and role in localStorage
+      localStorage.setItem('userEmail', email);
+      localStorage.setItem('userRole', data.role);
+
+      setTimeout(() => {
+        window.location.href = 'student-profile.html';
+      }, 1000);
+    } catch (err) {
+      msg.style.color = 'red';
+      msg.textContent = 'Server error ❗ Please try again later.';
+      console.error('Login error:', err);
+    }
+  });
+</script>
+
+
+</body>
+</html>

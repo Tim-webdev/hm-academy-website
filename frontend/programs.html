@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Select Program</title>
+  <link rel="stylesheet" href="Css/programs.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Select a Course Package</h2>
+    <select id="program-select">
+      <option value="">-- choose your program --</option>
+      <option value="compApp">Computer Appreciation – ₦67,500</option>
+      <option value="graphic">Graphic Design Certificate – ₦118,500</option>
+      <option value="network">Networking Certificate – ₦111,800</option>
+      <option value="coding">Coding Certificate – ₦188,500</option>
+      <option value="digital">Digital Marketing Certificate – ₦168,500</option>
+      <option value="video">Video Editing Certificate – ₦148,500</option>
+    </select>
+    <button id="pay-btn">Pay via Paystack</button>
+    <p id="message"></p>
+  </div>
+
+  <!-- ✅ Paystack Inline Script -->
+  <script src="https://js.paystack.co/v1/inline.js"></script>
+  <script>
+    // Backend URL
+    const BASE_URL = window.location.hostname === 'localhost'
+      ? 'http://localhost:5000/api/payments'
+      : 'https://hm-academy-website.onrender.com/api/payments';
+
+    // Get student email (saved in localStorage after login)
+    const studentEmail = localStorage.getItem('userEmail') || prompt('Enter your email');
+
+    // Program mapping
+    const mapping = {
+      compApp: ['Computer Appreciation – Certificate', 67500],
+      graphic: ['Graphic Design – Certificate', 118500],
+      network: ['Networking – Certificate', 111800],
+      coding: ['Coding – Certificate', 188500],
+      digital: ['Digital Marketing – Certificate', 168500],
+      video: ['Video Editing – Certificate', 148500]
+    };
+
+    // Pay button listener
+    document.getElementById('pay-btn').addEventListener('click', async () => {
+      const sel = document.getElementById('program-select');
+      if (!sel.value) return alert('⚠️ Please choose a program first');
+
+      const [programName, amount] = mapping[sel.value];
+
+      try {
+        // ✅ Step 1: Initialize payment in backend
+        const res = await fetch(`${BASE_URL}/initialize`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: studentEmail, programName, amount })
+        });
+
+        const data = await res.json();
+        if (!res.ok || !data.success) {
+          return document.getElementById('message').textContent = data.message || "⚠️ Error starting payment";
+        }
+
+        // ✅ Step 2: Open Paystack Checkout
+        const handler = PaystackPop.setup({
+          key: "pk_live_6bcb27680665d9514ebf26dc88bddd408beaa437", // ✅ Your Live Public Key
+          email: studentEmail,
+          amount: amount * 100, // kobo
+          ref: data.reference, // unique ref from backend
+          callback: async function(response) {
+            // ✅ Step 3: Verify payment
+            const verify = await fetch(`${BASE_URL}/verify/${response.reference}`);
+            const result = await verify.json();
+
+            if (result.success) {
+              alert('✅ Payment Successful! Your account is now active.');
+              window.location.href = 'student-profile.html';
+            } else {
+              alert('❌ Payment not verified. Please contact support.');
+            }
+          },
+          onClose: function() {
+            alert('⚠️ Payment window closed.');
+          }
+        });
+
+        handler.openIframe();
+      } catch (err) {
+        console.error("Payment error:", err);
+        document.getElementById('message').textContent = "❌ Server error. Try again later.";
+      }
+    });
+  </script>
+</body>
+</html>

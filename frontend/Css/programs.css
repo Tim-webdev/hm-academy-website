@@ -1,0 +1,95 @@
+/* Background Animation */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body::before,
+body::after {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background: linear-gradient(135deg, #0f2027, #2c5364, #00c6ff);
+  animation: rotateBackground 15s linear infinite;
+  z-index: -2;
+  opacity: 0.3;
+}
+
+body::after {
+  background: linear-gradient(135deg, #3a6186, #89253e);
+  animation-duration: 25s;
+  opacity: 0.2;
+}
+
+@keyframes rotateBackground {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Card/Container Styling */
+.container {
+  background-color: rgba(255, 255, 255, 0.96);
+  padding: 30px 40px;
+  border-radius: 12px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 420px;
+  width: 90%;
+  z-index: 1;
+  position: relative;
+  animation: floatIn 0.8s ease-out;
+}
+
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.container h2 {
+  margin-bottom: 20px;
+  color: #2c3e50;
+}
+
+select, button {
+  width: 100%;
+  padding: 12px;
+  margin: 12px 0;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #00c6ff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background: #0099cc;
+}
+
+#message {
+  margin-top: 10px;
+  font-weight: bold;
+  color: #2ecc71;
+}

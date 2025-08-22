@@ -1,0 +1,13 @@
+﻿# Secrets
+.env
+backend/.env
+
+# Node
+node_modules/
+backend/node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Builds / caches
+frontend/dist/
+.DS_Store

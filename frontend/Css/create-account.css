@@ -1,0 +1,63 @@
+/* Css/form-style.css */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+  overflow: hidden;
+  color: white;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: slideshow 15s infinite;
+  z-index: -1;
+  opacity: 0.85;
+}
+
+@keyframes slideshow {
+  0%   { background-image: url('../images/Navy\ Gate.jpeg'); }
+  33%  { background-image: url('../images/Navy\ Estate\ 1.jpeg'); }
+  66%  { background-image: url('../images/Navy\ Estate\ 2.jpeg'); }
+  100% { background-image: url('../images/HAM\ LOGO\ copy.png'); }
+}
+
+.container {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 40px;
+  border-radius: 10px;
+  width: 300px;
+  text-align: center;
+  margin: auto;
+  margin-top: 10vh;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+input, button {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+button {
+  background-color: #00e1ff;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #00bcd4;
+}
