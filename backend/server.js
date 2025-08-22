@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs');
 
 const app = express();
 
@@ -17,7 +18,6 @@ const userRoutes = require('./routes/user');
 const studentRoutes = require('./routes/student'); 
 
 // 📂 Ensure uploads folder exists
-const fs = require('fs');
 const uploadsDir = path.join(__dirname, 'uploads/avatars');
 if (!fs.existsSync(uploadsDir)) {
   fs.mkdirSync(uploadsDir, { recursive: true });
@@ -28,7 +28,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // 📌 Register API routes
 app.use('/api/auth', authRoutes);
-app.use('/api/payment', paymentRoutes);
+app.use('/api/payments', paymentRoutes); // ✅ changed to plural
 app.use('/api/user', userRoutes);
 app.use('/api/students', studentRoutes);
 
@@ -57,5 +57,5 @@ mongoose.connect(process.env.MONGO_URI, {
 // 📌 Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(🚀 Server running on port ${PORT});
 });
