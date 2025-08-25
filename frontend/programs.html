@@ -49,6 +49,7 @@
       const [programName, amount] = mapping[sel.value];
 
       try {
+        console.log("🟡 Initializing payment with backend...");
         // ✅ Step 1: Initialize payment with backend
         const res = await fetch(`${BASE_URL}/initialize`, {
           method: 'POST',
@@ -62,41 +63,51 @@
         }
 
         const data = await res.json();
+        console.log("🟢 Backend response (initialize):", data);
+
         if (!res.ok || !data.success) {
           return document.getElementById('message').textContent = data.message || "⚠️ Error starting payment";
         }
 
         // ✅ Step 2: Open Paystack Checkout
+        console.log("🟡 Opening Paystack popup...");
         const handler = PaystackPop.setup({
-          key: "pk_live_6bcb27680665d9514ebf26dc88bddd408beaa437", // ⚠️ Replace with your test key in dev
+          key: "pk_live_6bcb27680665d9514ebf26dc88bddd408beaa437", // ⚠️ Replace with test key in dev
           email: studentEmail,
           amount: amount * 100, // kobo
           ref: data.reference, // unique ref from backend
-          callback: async function(response) {
-            try {
-              // ✅ Step 3: Verify payment
-              const verify = await fetch(`${BASE_URL}/verify/${response.reference}`);
-              const result = await verify.json();
+          callback: function(response) {
+            console.log("🟢 Paystack returned callback:", response);
 
-              if (result.success) {
-                alert('✅ Payment Successful! Your account is now active.');
-                window.location.href = 'student-profile.html';
-              } else {
-                alert('❌ Payment not verified. Please contact support.');
+            // Wrap verification inside async IIFE
+            (async () => {
+              try {
+                console.log("🟡 Verifying payment with backend...");
+                const verify = await fetch(`${BASE_URL}/verify/${response.reference}`);
+                const result = await verify.json();
+                console.log("🟢 Backend response (verify):", result);
+
+                if (result.success) {
+                  alert('✅ Payment Successful! Your account is now active.');
+                  window.location.href = 'student-profile.html';
+                } else {
+                  alert('❌ Payment not verified. Please contact support.');
+                }
+              } catch (err) {
+                console.error("🔴 Verify error:", err);
+                alert("⚠️ Error verifying payment. Try again later.");
               }
-            } catch (err) {
-              console.error("Verify error:", err);
-              alert("⚠️ Error verifying payment. Try again later.");
-            }
+            })();
           },
           onClose: function() {
+            console.warn('⚠️ Payment window closed.');
             alert('⚠️ Payment window closed.');
           }
         });
 
         handler.openIframe();
       } catch (err) {
-        console.error("Payment error:", err);
+        console.error("🔴 Payment error:", err);
         document.getElementById('message').textContent = "❌ Server error. Try again later.";
       }
     });
