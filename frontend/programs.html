@@ -18,7 +18,7 @@
       <option value="video">Video Editing Certificate – ₦148,500</option>
     </select>
     <button id="pay-btn">Pay via Paystack</button>
-    <p id="message"></p>
+    <p id="message" style="color:red;"></p>
   </div>
 
   <!-- ✅ Paystack Inline Script -->
@@ -42,7 +42,6 @@
       video: ['Video Editing – Certificate', 148500]
     };
 
-    // Pay button listener
     document.getElementById('pay-btn').addEventListener('click', async () => {
       const sel = document.getElementById('program-select');
       if (!sel.value) return alert('⚠️ Please choose a program first');
@@ -50,12 +49,17 @@
       const [programName, amount] = mapping[sel.value];
 
       try {
-        // ✅ Step 1: Initialize payment in backend
+        // ✅ Step 1: Initialize payment with backend
         const res = await fetch(`${BASE_URL}/initialize`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: studentEmail, programName, amount })
         });
+
+        // Handle non-JSON error pages (like 404 HTML)
+        if (!res.headers.get("content-type")?.includes("application/json")) {
+          throw new Error("Invalid response from server (not JSON)");
+        }
 
         const data = await res.json();
         if (!res.ok || !data.success) {
@@ -64,20 +68,25 @@
 
         // ✅ Step 2: Open Paystack Checkout
         const handler = PaystackPop.setup({
-          key: "pk_live_6bcb27680665d9514ebf26dc88bddd408beaa437", // ✅ Your Live Public Key
+          key: "pk_live_6bcb27680665d9514ebf26dc88bddd408beaa437", // ⚠️ Replace with your test key in dev
           email: studentEmail,
           amount: amount * 100, // kobo
           ref: data.reference, // unique ref from backend
           callback: async function(response) {
-            // ✅ Step 3: Verify payment
-            const verify = await fetch(`${BASE_URL}/verify/${response.reference}`);
-            const result = await verify.json();
+            try {
+              // ✅ Step 3: Verify payment
+              const verify = await fetch(`${BASE_URL}/verify/${response.reference}`);
+              const result = await verify.json();
 
-            if (result.success) {
-              alert('✅ Payment Successful! Your account is now active.');
-              window.location.href = 'student-profile.html';
-            } else {
-              alert('❌ Payment not verified. Please contact support.');
+              if (result.success) {
+                alert('✅ Payment Successful! Your account is now active.');
+                window.location.href = 'student-profile.html';
+              } else {
+                alert('❌ Payment not verified. Please contact support.');
+              }
+            } catch (err) {
+              console.error("Verify error:", err);
+              alert("⚠️ Error verifying payment. Try again later.");
             }
           },
           onClose: function() {

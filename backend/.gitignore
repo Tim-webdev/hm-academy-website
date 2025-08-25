@@ -1,0 +1,13 @@
+# Node modules
+node_modules/
+
+# Environment variables
+.env
+
+# Uploads (optional – if you don’t want to push user uploads)
+uploads/
+
+# Logs
+npm-debug.log
+yarn-debug.log
+yarn-error.log
